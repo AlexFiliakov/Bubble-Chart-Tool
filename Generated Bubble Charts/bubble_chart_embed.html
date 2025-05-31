@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Performance Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        .chart-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        #chart { width: 100%; height: 600px; }
+        .chart-title { font-size: 20pt; font-weight: bold; text-anchor: middle; fill: #002855; }
+        .axis-label { font-size: 16pt; fill: #212529; }
+        .tick text { font-size: 14pt; fill: #495057; }
+        .tooltip {
+            position: absolute;
+            padding: 12px;
+            background: rgba(33, 37, 41, 0.95);
+            color: white;
+            border-radius: 8px;
+            pointer-events: none;
+            font-size: 14px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div id="chart"></div>
+        <div id="legend" class="legend"></div>
+    </div>
+    <div id="tooltip" class="tooltip" style="display: none;"></div>
+    
+    <script>
+        const settings = {
+  "xField": "Legitimate %",
+  "yField": "Average Viewability %",
+  "sizeField": "Investment",
+  "labelField": "Partner",
+  "colorField": "Partner Group",
+  "chartTitle": "Marketing Performance Analysis",
+  "xMin": "",
+  "xMax": "",
+  "yMin": "",
+  "yMax": "",
+  "groupColors": {
+    "W": "#0077C0",
+    "X": "#48A14D",
+    "Y": "#D71920",
+    "Z": "#FF8200"
+  },
+  "customColors": {},
+  "csvData": [
+    {
+      "Partner": "ABC",
+      "Average Viewability %": 0.7,
+      "CTV Quartile %": 0.72,
+      "Fraud %": 0.01,
+      "Pass Rate %": 0.96,
+      "Brand": "Marty",
+      "Partner Group": "W",
+      "Investment": 1000000,
+      "Legitimate %": 0.99
+    },
+    {
+      "Partner": "Bergen Academies",
+      "Average Viewability %": 0.62,
+      "CTV Quartile %": "NA",
+      "Fraud %": 0.0105,
+      "Pass Rate %": "NA",
+      "Brand": "Alex",
+      "Partner Group": "W",
+      "Investment": 500000,
+      "Legitimate %": 0.9895
+    },
+    {
+      "Partner": "Claude",
+      "Average Viewability %": 0.87,
+      "CTV Quartile %": "NA",
+      "Fraud %": 0.0098,
+      "Pass Rate %": "NA",
+      "Brand": "Julia",
+      "Partner Group": "W",
+      "Investment": 10000,
+      "Legitimate %": 0.9902
+    },
+    {
+      "Partner": "Drama Poop",
+      "Average Viewability %": 0.98,
+      "CTV Quartile %": "NA",
+      "Fraud %": 0.005,
+      "Pass Rate %": 0.94,
+      "Brand": "Julia",
+      "Partner Group": "X",
+      "Investment": 120000,
+      "Legitimate %": 0.995
+    },
+    {
+      "Partner": "E-40",
+      "Average Viewability %": 0.84,
+      "CTV Quartile %": 0.42,
+      "Fraud %": 0.02,
+      "Pass Rate %": 0.98,
+      "Brand": "Marty",
+      "Partner Group": "Y",
+      "Investment": 67000,
+      "Legitimate %": 0.98
+    },
+    {
+      "Partner": "Ferrari",
+      "Average Viewability %": 0.77,
+      "CTV Quartile %": 0.5,
+      "Fraud %": 0.0175,
+      "Pass Rate %": 0.9,
+      "Brand": "Alex",
+      "Partner Group": "X",
+      "Investment": 82000,
+      "Legitimate %": 0.9825
+    },
+    {
+      "Partner": "Gucci Mane",
+      "Average Viewability %": 0.66,
+      "CTV Quartile %": 0.24,
+      "Fraud %": 0.005,
+      "Pass Rate %": "NA",
+      "Brand": "The Poop",
+      "Partner Group": "Y",
+      "Investment": 450000,
+      "Legitimate %": 0.995
+    },
+    {
+      "Partner": "Helium",
+      "Average Viewability %": 0.68,
+      "CTV Quartile %": "NA ",
+      "Fraud %": 0.0102,
+      "Pass Rate %": "NA",
+      "Brand": "Alex ",
+      "Partner Group": "Z",
+      "Investment": 34000,
+      "Legitimate %": 0.9898
+    }
+  ]
+};
+        
+        function renderChart() {
+            const { xField, yField, sizeField, labelField, colorField, chartTitle, xMin, xMax, yMin, yMax, groupColors, customColors, csvData } = settings;
+            
+            const validData = csvData.filter(d => 
+                d[xField] !== null && d[xField] !== 'NA' &&
+                d[yField] !== null && d[yField] !== 'NA' &&
+                d[sizeField] !== null && d[sizeField] !== 'NA'
+            );
+            
+            const margin = {top: 60, right: 40, bottom: 80, left: 90};
+            const width = document.getElementById('chart').offsetWidth - margin.left - margin.right;
+            const height = 600 - margin.top - margin.bottom;
+            
+            const svg = d3.select('#chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom);
+            
+            svg.append('text')
+                .attr('x', (width + margin.left + margin.right) / 2)
+                .attr('y', 35)
+                .attr('class', 'chart-title')
+                .text(chartTitle);
+            
+            const g = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            const xDomainMin = xMin || d3.min(validData, d => +d[xField]);
+            const xDomainMax = xMax || d3.max(validData, d => +d[xField]);
+            const yDomainMin = yMin || d3.min(validData, d => +d[yField]);
+            const yDomainMax = yMax || d3.max(validData, d => +d[yField]);
+            
+            const xScale = d3.scaleLinear()
+                .domain([xDomainMin, xDomainMax])
+                .range([0, width])
+                .nice();
+            
+            const yScale = d3.scaleLinear()
+                .domain([yDomainMin, yDomainMax])
+                .range([height, 0])
+                .nice();
+            
+            const sizeScale = d3.scaleSqrt()
+                .domain(d3.extent(validData, d => +d[sizeField]))
+                .range([5, 50]);
+            
+            // Add axes
+            g.append('g')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale).tickFormat(d => {
+                    if (xField.includes('%')) return d3.format('.0%')(d);
+                    return d3.format(',')(d);
+                }))
+                .append('text')
+                .attr('x', width / 2)
+                .attr('y', 50)
+                .attr('fill', '#212529')
+                .attr('class', 'axis-label')
+                .text(xField);
+            
+            g.append('g')
+                .call(d3.axisLeft(yScale).tickFormat(d => {
+                    if (yField.includes('%')) return d3.format('.0%')(d);
+                    return d3.format(',')(d);
+                }))
+                .append('text')
+                .attr('transform', 'rotate(-90)')
+                .attr('y', -60)
+                .attr('x', -height / 2)
+                .attr('fill', '#212529')
+                .attr('class', 'axis-label')
+                .text(yField);
+            
+            g.selectAll('.tick text')
+                .style('font-size', '14pt')
+                .style('fill', '#495057');
+            
+            // Add grid
+            g.append('g')
+                .attr('class', 'grid')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale).tickSize(-height).tickFormat(''))
+                .style('stroke-dasharray', '3,3')
+                .style('opacity', 0.3);
+            
+            g.append('g')
+                .attr('class', 'grid')
+                .call(d3.axisLeft(yScale).tickSize(-width).tickFormat(''))
+                .style('stroke-dasharray', '3,3')
+                .style('opacity', 0.3);
+            
+            // Add bubbles
+            const bubbles = g.selectAll('.bubble')
+                .data(validData)
+                .enter().append('g')
+                .attr('class', 'bubble');
+            
+            bubbles.append('circle')
+                .attr('cx', d => xScale(+d[xField]))
+                .attr('cy', d => yScale(+d[yField]))
+                .attr('r', d => sizeScale(+d[sizeField]))
+                .style('fill', d => {
+                    if (customColors[d[labelField]]) {
+                        return customColors[d[labelField]];
+                    }
+                    return groupColors[d[colorField]] || '#999';
+                })
+                .style('opacity', 0.7)
+                .style('stroke', '#fff')
+                .style('stroke-width', 2)
+                .on('mouseover', function(event, d) {
+                    d3.select(this).style('opacity', 1);
+                    showTooltip(event, d);
+                })
+                .on('mouseout', function() {
+                    d3.select(this).style('opacity', 0.7);
+                    hideTooltip();
+                });
+            
+            bubbles.append('text')
+                .attr('x', d => xScale(+d[xField]))
+                .attr('y', d => yScale(+d[yField]))
+                .attr('text-anchor', 'middle')
+                .attr('dy', '.35em')
+                .style('font-size', '12px')
+                .style('font-weight', 'bold')
+                .style('pointer-events', 'none')
+                .text(d => d[labelField]);
+            
+            // Add legend
+            const legendDiv = document.getElementById('legend');
+            Object.entries(groupColors).forEach(([group, color]) => {
+                const item = document.createElement('div');
+                item.className = 'legend-item';
+                item.innerHTML = `
+                    <div class="legend-color" style="background-color: ${color}"></div>
+                    <span>${group}</span>
+                `;
+                legendDiv.appendChild(item);
+            });
+            
+            function showTooltip(event, d) {
+                const tooltip = document.getElementById('tooltip');
+                const formatValue = (value, field) => {
+                    if (field.includes('%')) return d3.format('.1%')(value);
+                    if (field.includes('Investment') || field.includes('$')) return '$' + d3.format(',')(value);
+                    return d3.format(',.2f')(value);
+                };
+                
+                tooltip.innerHTML = `
+                    <strong>${d[labelField]}</strong><br>
+                    ${xField}: ${formatValue(d[xField], xField)}<br>
+                    ${yField}: ${formatValue(d[yField], yField)}<br>
+                    ${sizeField}: ${formatValue(d[sizeField], sizeField)}<br>
+                    ${colorField}: ${d[colorField]}
+                `;
+                
+                tooltip.style.display = 'block';
+                tooltip.style.left = (event.pageX + 10) + 'px';
+                tooltip.style.top = (event.pageY - 10) + 'px';
+            }
+            
+            function hideTooltip() {
+                document.getElementById('tooltip').style.display = 'none';
+            }
+        }
+        
+        renderChart();
+    </script>
+</body>
+</html>
