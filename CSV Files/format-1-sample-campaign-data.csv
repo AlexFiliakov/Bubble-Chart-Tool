@@ -1,0 +1,41 @@
+Partner,Month,Conversion_Rate,Revenue,ROI,Click_Through_Rate,Cost_Per_Acquisition
+Google Ads,Jan-2025,3.2,125000,2.8,4.5,45
+Google Ads,Feb-2025,3.5,132000,3.1,4.8,42
+Google Ads,Mar-2025,3.8,145000,3.4,5.2,38
+Google Ads,Apr-2025,4.1,158000,3.7,5.5,35
+Facebook,Jan-2025,2.8,98000,2.2,3.8,52
+Facebook,Feb-2025,2.9,102000,2.3,3.9,50
+Facebook,Mar-2025,3.1,110000,2.5,4.1,48
+Facebook,Apr-2025,3.3,118000,2.7,4.3,45
+LinkedIn,Jan-2025,4.5,85000,3.8,2.8,68
+LinkedIn,Feb-2025,4.7,89000,4.0,2.9,65
+LinkedIn,Mar-2025,4.9,93000,4.2,3.1,62
+LinkedIn,Apr-2025,5.1,97000,4.4,3.2,60
+Email Marketing,Jan-2025,5.2,75000,5.5,8.2,25
+Email Marketing,Feb-2025,5.4,78000,5.7,8.5,24
+Email Marketing,Mar-2025,5.6,82000,5.9,8.8,23
+Email Marketing,Apr-2025,5.8,86000,6.1,9.1,22
+Instagram,Jan-2025,2.5,65000,1.9,3.2,58
+Instagram,Feb-2025,2.7,68000,2.1,3.4,55
+Instagram,Mar-2025,2.9,72000,2.3,3.6,52
+Instagram,Apr-2025,3.1,76000,2.5,3.8,50
+Twitter,Jan-2025,1.8,42000,1.2,2.5,75
+Twitter,Feb-2025,1.9,44000,1.3,2.6,72
+Twitter,Mar-2025,2.0,46000,1.4,2.7,70
+Twitter,Apr-2025,2.1,48000,1.5,2.8,68
+YouTube,Jan-2025,3.5,95000,3.2,4.2,40
+YouTube,Feb-2025,3.7,99000,3.4,4.4,38
+YouTube,Mar-2025,3.9,103000,3.6,4.6,36
+YouTube,Apr-2025,4.1,108000,3.8,4.8,34
+TikTok,Jan-2025,2.2,55000,1.8,3.5,62
+TikTok,Feb-2025,2.6,62000,2.2,3.9,56
+TikTok,Mar-2025,3.0,70000,2.6,4.3,50
+TikTok,Apr-2025,3.4,78000,3.0,4.7,45
+Affiliate Network,Jan-2025,4.8,112000,4.5,5.8,30
+Affiliate Network,Feb-2025,4.9,115000,4.6,5.9,29
+Affiliate Network,Mar-2025,5.0,118000,4.7,6.0,28
+Affiliate Network,Apr-2025,5.1,121000,4.8,6.1,27
+Display Ads,Jan-2025,1.5,38000,0.9,1.8,85
+Display Ads,Feb-2025,1.6,40000,1.0,1.9,82
+Display Ads,Mar-2025,1.7,42000,1.1,2.0,80
+Display Ads,Apr-2025,1.8,44000,1.2,2.1,78

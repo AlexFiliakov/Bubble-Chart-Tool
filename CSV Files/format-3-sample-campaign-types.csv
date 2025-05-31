@@ -1,0 +1,31 @@
+Partner_Name,Campaign_Type,Performance_Index,Spend_Efficiency,Brand_Lift,Engagement_Rate,ROAS
+Digital Agency A,Brand Awareness,72.5,3.2,15.5,4.8,2.1
+Digital Agency A,Lead Generation,85.3,4.5,8.2,6.2,3.8
+Digital Agency A,Retargeting,91.2,5.8,5.5,8.5,5.2
+Digital Agency A,Seasonal Promotion,78.6,3.8,12.3,5.5,3.2
+Digital Agency A,Product Launch,83.4,4.2,18.5,6.8,3.5
+Creative Studio B,Brand Awareness,88.5,4.1,22.5,7.2,2.8
+Creative Studio B,Lead Generation,76.2,3.5,10.5,5.8,3.2
+Creative Studio B,Retargeting,82.3,4.2,7.2,7.5,4.5
+Creative Studio B,Seasonal Promotion,92.5,5.2,16.8,8.9,4.8
+Creative Studio B,Product Launch,95.2,5.8,25.5,9.5,5.2
+Media Buyer C,Brand Awareness,65.8,2.8,11.2,3.5,1.8
+Media Buyer C,Lead Generation,78.5,3.8,7.5,4.8,3.5
+Media Buyer C,Retargeting,88.6,5.2,4.8,6.2,4.8
+Media Buyer C,Seasonal Promotion,72.3,3.2,9.5,4.2,2.8
+Media Buyer C,Product Launch,70.5,3.0,13.2,4.5,2.5
+Performance Agency D,Brand Awareness,58.2,2.2,8.5,2.8,1.5
+Performance Agency D,Lead Generation,92.5,5.5,6.8,7.8,5.8
+Performance Agency D,Retargeting,95.8,6.2,3.5,9.2,6.5
+Performance Agency D,Seasonal Promotion,85.6,4.8,7.2,6.5,4.2
+Performance Agency D,Product Launch,72.8,3.5,10.5,5.2,3.0
+Full Service E,Brand Awareness,78.5,3.5,17.8,5.5,2.5
+Full Service E,Lead Generation,82.3,4.2,9.5,6.5,4.2
+Full Service E,Retargeting,86.5,4.8,6.2,7.8,5.0
+Full Service E,Seasonal Promotion,80.2,4.0,13.5,6.2,3.8
+Full Service E,Product Launch,88.6,4.5,20.2,7.5,4.0
+Boutique Agency F,Brand Awareness,92.3,4.8,24.5,8.5,3.2
+Boutique Agency F,Lead Generation,72.5,3.2,11.2,5.2,2.8
+Boutique Agency F,Retargeting,78.6,3.8,8.5,6.5,3.5
+Boutique Agency F,Seasonal Promotion,85.5,4.5,15.2,7.8,4.2
+Boutique Agency F,Product Launch,98.2,6.2,28.5,10.2,5.8

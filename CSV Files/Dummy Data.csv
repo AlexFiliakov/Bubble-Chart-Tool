@@ -1,0 +1,9 @@
+﻿Partner ,Average Viewability %,CTV Quartile %,Fraud %,Pass Rate % ,Brand ,Partner Group,Investment ,Legitimate %
+ABC,0.7,0.72,0.01,0.96,Marty,W,1000000,0.99
+Bergen Academies,0.62,NA,0.0105,NA,Alex,W,500000,0.9895
+Claude,0.87,NA,0.0098,NA,Julia,W,10000,0.9902
+Drama Poop,0.98,NA,0.005,0.94,Julia,X,120000,0.995
+E-40,0.84,0.42,0.02,0.98,Marty,Y,67000,0.98
+Ferrari,0.77,0.5,0.0175,0.9,Alex,X,82000,0.9825
+Gucci Mane,0.66,0.24,0.005,NA,The Poop,Y,450000,0.995
+Helium,0.68,NA ,0.0102,NA,Alex ,Z,34000,0.9898
